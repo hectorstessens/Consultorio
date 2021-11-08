@@ -8,6 +8,11 @@ class controllerbase:
         self.service = service
 
 
+    def api_getById(self,id):
+        ''' Get by id'''
+        entity = self.service.getById(id)
+        return jsonify(entity.as_dict())
+
     def api_get(self):
         ''' Get all entities'''
         entities = self.service.get()

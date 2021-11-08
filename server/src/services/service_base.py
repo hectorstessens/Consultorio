@@ -8,6 +8,17 @@ class servicebase:
     def __init__(self,_entity):
         self.entitymodel = _entity
 
+    def getById(self,id):
+        '''
+        Delete entity by id
+        :param id: the entity id
+        :returns: the response
+        '''
+        entity = self.entitymodel.query.get(id)
+        if entity:
+            return entity
+        raise NotFound('no such entity found with id=' + str(id))
+
     def get(self):
         '''
         Get all entities

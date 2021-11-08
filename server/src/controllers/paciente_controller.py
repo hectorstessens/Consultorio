@@ -4,16 +4,18 @@ from werkzeug.exceptions import HTTPException
 
 from services.service_base import servicebase;
 from controllers.controller_base import controllerbase
-
-import json
+from domain.paciente import Paciente
 from flask_cors import CORS
-
 
 apipaciente = Blueprint('pacientes', 'pacientes')
 routeapi = '/api/pacientes'
 service = servicebase(Paciente)
 controllerapi = controllerbase(Paciente, service)
 CORS(apipaciente)
+
+@apipaciente.route(routeapi + '/<string:id>', methods=['GET'])
+def api_getById(id):
+    return controllerapi.api_getById(id)
 
 @apipaciente.route(routeapi, methods=['GET'])
 def api_get():

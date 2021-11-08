@@ -8,8 +8,12 @@ from flask_cors import CORS
 apipagos = Blueprint('pagos', 'pagos')
 routeapi = '/api/pagos'
 service = servicebase(Pagos)
-CORS(apipagos)
 controllerapi = controllerbase(Pagos, service)
+CORS(apipagos)
+
+@apipagos.route(routeapi + '/<string:id>', methods=['GET'])
+def api_getById(id):
+    return controllerapi.api_getById(id)
 
 @apipagos.route(routeapi, methods=['GET'])
 def api_get():

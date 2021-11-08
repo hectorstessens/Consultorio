@@ -8,9 +8,12 @@ from flask_cors import CORS
 apiobrasocial = Blueprint('obrasocial', 'obrasocial')
 routeapi = '/api/obrasocial'
 service = servicebase(ObraSocial)
-CORS(apiobrasocial)
 controllerapi = controllerbase(ObraSocial, service)
 CORS(apiobrasocial)
+
+@apiobrasocial.route(routeapi + '/<string:id>', methods=['GET'])
+def api_getById(id):
+    return controllerapi.api_getById(id)
 
 @apiobrasocial.route(routeapi, methods=['GET'])
 def api_get():

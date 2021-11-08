@@ -8,8 +8,12 @@ from flask_cors import CORS
 apiamp = Blueprint('amp', 'amp')
 routeapi = '/api/apm'
 service = servicebase(Apm)
-CORS(apiamp)
 controllerapi = controllerbase(Apm, service)
+CORS(apiamp)
+
+@apiamp.route(routeapi + '/<string:id>', methods=['GET'])
+def api_getById(id):
+    return controllerapi.api_getById(id)
 
 @apiamp.route(routeapi, methods=['GET'])
 def api_get():

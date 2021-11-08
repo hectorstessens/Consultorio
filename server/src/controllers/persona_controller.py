@@ -14,8 +14,12 @@ from flask_cors import CORS
 apipersona = Blueprint('persona', 'persona')
 routeapi = '/api/persona'
 service = servicebase(Persona)
-CORS(apipersona)
 controllerapi = controllerbase(Persona, service)
+CORS(apipersona)
+
+@apipersona.route(routeapi + '/<string:id>', methods=['GET'])
+def api_getById(id):
+    return controllerapi.api_getById(id)
 
 @apipersona.route(routeapi, methods=['GET'])
 def api_get():
@@ -38,7 +42,7 @@ def handle_exception(e):
     return controllerapi.handle_exception(e)
 
 
-@apipersona.route(routeapi +'/<string:DNI>', methods=['GET', 'POST'])
+@apipersona.route(routeapi +'/DNI/<string:DNI>', methods=['GET', 'POST'])
 def buscarPersona(DNI):    
     result = PersonaService.buscarPersona(DNI)
 
